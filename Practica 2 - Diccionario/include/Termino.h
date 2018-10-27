@@ -4,8 +4,13 @@
 * @author Francisco Domínguez Lorente
 */
 
+#include <string>
+#include "Vector_Dinamico.h"
+
 #ifndef terminoH
 #define terminoH
+
+using namespace std;
 
 /*
 * @brief TDA Termino
@@ -14,7 +19,7 @@
 class Termino{
 private:
 	string palabra;			// Palabra
-	Vector_Dinamico<string*> definiciones;	// Significado de la palabra
+	Vector_Dinamico<string> definiciones;	// Significado de la palabra
 	int num_definiciones;
 
 public:
@@ -27,7 +32,7 @@ public:
 /*
 * @brief Constructor por parámetros
 */
-	Termino(string palabra, string* definiciones);
+	Termino(string palabra, Vector_Dinamico<string> definiciones);
 
 /*
 * @brief Constructor por copia
@@ -39,19 +44,19 @@ public:
 * @brief Consultor de número de definiciones
 * @return Número de definiciones de la palabra
 */
-	inline int getNumDefiniciones() const{return num_definiciones};
+	inline int getNumDefiniciones() const{return num_definiciones;};
 
 /*
 * @brief Consultor de la palabra
 * @return La palabra
 */
-	inline string getPalabra() const{return palabra};
+	inline string getPalabra() const{return palabra;};
 	
 /*
 * @brief Consultor del significado
 * @return Significado
 */
-	inline string* getDefiniciones() const{return definiciones};
+	inline Vector_Dinamico<string> getDefiniciones() const{return definiciones;};
 
 /*
 * @brief Establecer la palabra
@@ -63,17 +68,19 @@ public:
 * @brief Añade una definición a la palabra
 * @param La definición a añadir
 */
-	void aniadeDefinicion(string* def);
+	void aniadeDefinicion(string def);
 
 /*
 * @brief Sobrecarga del operador de asignación
 */
 	Termino& operator =(const Termino& original);
-}
-
 
 /*
 * @brief Sobrecarga de operadores de entrada y salida
 */
-friend ostream& operator <<(ostream &os, const Termino &p);
-friend istream& operator >>(istream &is, const Termino &p);
+friend ostream& operator <<(ostream& os, const Termino& t);
+friend istream& operator >>(istream& is, Termino& t);
+
+};
+
+#endif

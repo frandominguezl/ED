@@ -7,20 +7,18 @@
 #include "Termino.h"
 #include "Vector_Dinamico.h"
 
+using namespace std;
+
 Termino::Termino(){
-	this->palabra = null;
-	this->definiciones = Vector_Dinamico<string*> int(0);
+	this->palabra = '\n';
+	this->definiciones = Vector_Dinamico<string>(0);
 	this->num_definiciones = definiciones.size();
 }
 
-Termino::Termino(string palabra, string* definiciones){
+Termino::Termino(string palabra, Vector_Dinamico<string> definiciones){
 	this->palabra = palabra;
-	this->definiciones = Vector_Dinamico<string*> v(definiciones.length());
+	this->definiciones = definiciones;
 	this->num_definiciones = definiciones.size();
-
-	for(int i=0; i<num_definiciones; i++){
-		this->definiciones[i] = definiciones[i];
-	}
 }
 
 Termino::Termino(const Termino& t){
@@ -33,7 +31,7 @@ void Termino::setPalabra(string palabra){
 	this->palabra = palabra;
 }
 
-void Termino::aniadeDefinicion(string* def){
+void Termino::aniadeDefinicion(string def){
 	this->num_definiciones++;
 	this->definiciones.resize(num_definiciones);
 	this->definiciones[num_definiciones] = def;
@@ -42,28 +40,33 @@ void Termino::aniadeDefinicion(string* def){
 Termino& Termino::operator =(const Termino& original){
 	if(this != &original){
 		this->palabra = original.getPalabra();
-		this->definiciones = original.getDefiniciones();
 		this->num_definiciones = original.getNumDefiniciones();
+
+		for(int i=0; i<this->num_definiciones; i++){
+			this->definiciones[i] = original.definiciones[i];
+		}
 	}
 
 	return *this;
 }
 
-ostream& operator <<(ostream &os, const Termino &p){
-	os << p.palabra; << endl;
-
-	for(int i=0; i<p.num_definiciones; i++){
-		os << p.definiciones[i] << endl;
-	}
+ostream& operator <<(ostream& os, const Termino& t){
+	for(int i=0; i<t.getDefiniciones().size(); i++){
+			os << t.getPalabra() << ";";
+			os << t.getDefiniciones()[i] << endl;
+		}
 
 	return os;
 }
 
-istream& operator >>(istream &is, const Termino &p){
-	is >> p.getPalabra(); >> p.getNumDefiniciones();
+istream& operator >>(istream& is, Termino& t){
+	string palabra = t.getPalabra();
+	int numDefs = t.getNumDefiniciones();
 
-	for(int i=0; i<p.num_definiciones; i++){
-		is >> p.definiciones[i] << endl;
+	is >> palabra >> numDefs;
+
+	for(int i=0; i<t.num_definiciones; i++){
+		is >> t.getDefiniciones()[i];
 	}
 
 	return is;
