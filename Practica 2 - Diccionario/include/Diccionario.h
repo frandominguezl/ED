@@ -4,12 +4,12 @@
 * @author Francisco Domínguez Lorente
 */
 
+#ifndef DICCIONARIO_H
+#define DICCIONARIO_H
+
 #include <string.h>
 #include "Termino.h"
 #include "Vector_Dinamico.h"
-
-#ifndef diccionarioH
-#define diccionarioH
 
 using namespace std;
 
@@ -45,7 +45,7 @@ public:
 * @param La palabra de la que queremos obtener las definiciones
 * @return Todas las definiciones de una palabra
 */
-	inline Vector_Dinamico<string> getDefs(Termino palabra) const{return palabra.getDefiniciones();};
+	Vector_Dinamico<string> getDefs(string palabra);
 
 /*
 * @brief Consultor de todos los términos del diccionario
@@ -97,9 +97,10 @@ public:
 /*
 * @brief: Sobrecarga de operadores de entrada y salida
 */
-friend ostream& operator <<(ostream& os, const Diccionario& t);
-friend istream& operator >>(istream& is, Diccionario& t);
+friend ostream& operator <<(ostream& os, const Diccionario& d);
+friend istream& operator >>(istream& is, Diccionario& d);
 
 };
 
 #endif
+

@@ -53,11 +53,17 @@ public:
 	inline string getPalabra() const{return palabra;};
 	
 /*
-* @brief Consultor del significado
+* @brief Consultor de los significados
 * @return Significado
 */
 	inline Vector_Dinamico<string> getDefiniciones() const{return definiciones;};
 
+/*
+* @brief Consultor del significado i
+* @param El índice del significado que queremos obtener 
+* @return Significado
+*/        
+        inline string getDefinicion(int i) const {return definiciones[i];}
 /*
 * @brief Establecer la palabra
 * @param La palabra
@@ -74,13 +80,6 @@ public:
 * @brief Sobrecarga del operador de asignación
 */
 	Termino& operator =(const Termino& original);
-
-/*
-* @brief Sobrecarga de operadores de entrada y salida
-*/
-friend ostream& operator <<(ostream& os, const Termino& t);
-friend istream& operator >>(istream& is, Termino& t);
-
 };
 
 #endif

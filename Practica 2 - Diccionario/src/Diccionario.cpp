@@ -2,10 +2,9 @@
 * @author Francisco Domínguez Lorente
 */
 
+#include "Diccionario.h"
 #include <iostream>
 #include <string.h>
-#include "Diccionario.h"
-#include "Termino.h"
 #include "Vector_Dinamico.h"
 
 using namespace std;
@@ -25,20 +24,47 @@ Diccionario::Diccionario(const Diccionario& d){
 	this->num_terminos = d.num_terminos;
 }
 
-void Diccionario::aniadeTermino(const Termino t){
+Vector_Dinamico<string> Diccionario::getDefs(string palabra){
+	bool encontrada = false;
+	int indice = -1;
+        Vector_Dinamico<string> encontrados;
+        
+	for(int i=0; i<this->num_terminos && !encontrada; i++){
+		if(this->terminos[i].getPalabra() == palabra){
+			encontrada = true;
+			indice = i;
+		}
+	}
+        
+        if(encontrada){
+            encontrados = this->terminos[indice].getDefiniciones();
+        }
+        
+        return encontrados;
+}
+
+void Diccionario::aniadeTermino(Termino t){
+        bool encontrado=false;
+        int posicion;
 	this->num_terminos++;
 	this->terminos.resize(num_terminos);
 	
-	for(int i=0; i<this->num_terminos; i++){
-
-		if(strcmp(this->terminos[i].getPalabra().c_str(), t.getPalabra().c_str()) > 0){
-			for(int j=this->num_terminos-1; j>i; j--){
-				this->terminos[j] = this->terminos[j+1];
-			}
-
-			this->terminos[i] = t;
-		}
+	for(int i=0; i<this->num_terminos && !encontrado; i++){
+            if(t.getPalabra() < this->terminos[i].getPalabra()){
+                posicion = i;
+                encontrado = true;
+            }
 	}
+        
+        if(!encontrado){
+            posicion = this->num_terminos-1;
+        }
+        
+        for(int i=this->num_terminos-1; i>posicion; i--){
+            this->terminos[i] = this->terminos[i-1];
+        }
+        
+        this->terminos[posicion] = t;
 }
 
 void Diccionario::eliminarTermino(Termino t){
@@ -61,7 +87,18 @@ void Diccionario::eliminarTermino(Termino t){
 }
 
 Diccionario Diccionario::filtrarIntervalo(char ini, char fin){
+	Diccionario encontrado;
+	string palabra;
 
+	for(int i=0; i<this->num_terminos; i++){
+		palabra = this->terminos[i].getPalabra();
+
+		if(palabra[0] >= ini && palabra[0] <= fin){
+			encontrado.aniadeTermino(this->terminos[i]);
+		}
+	}
+
+	return encontrado;
 }
 
 Diccionario Diccionario::filtrarPalabraClave(string palabra){
@@ -109,31 +146,43 @@ void Diccionario::recuentoDefiniciones(int& num_total, int& asociadas_palabra, f
 
 }
 
-ostream& operator <<(ostream& os, const Diccionario& d){
-	for(int i=0; i<d.getNumTerminos(); i++){
-		for(int j=0; j<d.getTerminos()[i].getNumDefiniciones(); j++){
-			os << d.getTerminos()[i];
+ostream& operator << (ostream &os, const Diccionario &d){
+	for(int i=0;i <d.getNumTerminos(); i++){
+		for(int j=0;j<=d.terminos[i].getNumDefiniciones(); j++){
+			os << d.terminos[i].getPalabra()<<";";
+                        os << d.terminos[i].getDefiniciones()[j] <<endl;
 		}
 	}
-
 	return os;
 }
 
-istream& operator >>(istream &is, Termino& t){
-	string palabra, definicion;
+istream& operator >> (istream& is, Diccionario& d){
+    string aux;
+    string anterior = "\0";
+    
+    
+    getline(is, aux, ';');
+    do{
+        Termino taux;
+        do{
+            if(anterior == "\0" || aux != anterior){
+                taux.setPalabra(aux);
+                anterior = aux;
+                getline(is, aux, '\n');
+                taux.aniadeDefinicion(aux);
+            }
+            else{
+                getline(is, aux, '\n');
+                taux.aniadeDefinicion(aux);
+            }
 
-	getline(is, palabra, ';');
-	getline(is, definicion);
+            if(!is.eof())
+                getline(is, aux, ';');
+        }while(aux == anterior);
 
-	t.setPalabra(palabra);
-	t.aniadeDefinicion(definicion);
-	getline(is, palabra, ';');
+        d.aniadeTermino( taux );
+        
+    }while(!is.eof());
 
-	while(strcmp(t.getPalabra().c_str(), palabra.c_str()) == 0){
-		getline(is, definicion);
-		t.aniadeDefinicion(definicion);
-		getline(is, palabra, ';');
-	}
-
-	return is;
+    return is;
 }
