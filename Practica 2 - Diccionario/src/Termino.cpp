@@ -32,16 +32,16 @@ void Termino::setPalabra(string palabra){
 }
 
 void Termino::aniadeDefinicion(string def){
-	this->num_definiciones++;
-	this->definiciones.resize(num_definiciones);
-	this->definiciones[num_definiciones-1] = def;
+	this->definiciones.resize(definiciones.size()+1);
+	this->definiciones[definiciones.size()-1] = def;
+        this->num_definiciones++;
 }
 
 Termino& Termino::operator =(const Termino& original){
 	if(this != &original){
 		this->palabra = original.getPalabra();
 		this->num_definiciones = original.getNumDefiniciones();
-                this->getDefiniciones() = original.getDefiniciones();
+                this->definiciones = original.getDefiniciones();
         }
 
 	return *this;

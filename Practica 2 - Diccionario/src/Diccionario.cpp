@@ -3,15 +3,15 @@
 */
 
 #include "Diccionario.h"
-#include <iostream>
 #include <string.h>
 #include "Vector_Dinamico.h"
+#include <iostream>
 
 using namespace std;
 
 Diccionario::Diccionario(){
 	this->terminos = Vector_Dinamico<Termino>(0);
-	this->num_terminos = terminos.size();
+	this->num_terminos = 0;
 }
 
 Diccionario::Diccionario(Vector_Dinamico<Termino> terminos){
@@ -20,8 +20,7 @@ Diccionario::Diccionario(Vector_Dinamico<Termino> terminos){
 }
 
 Diccionario::Diccionario(const Diccionario& d){
-	this->terminos = d.terminos;
-	this->num_terminos = d.num_terminos;
+	this->terminos = d.getTerminos();
 }
 
 Vector_Dinamico<string> Diccionario::getDefs(string palabra){
@@ -88,14 +87,19 @@ void Diccionario::eliminarTermino(Termino t){
 
 Diccionario Diccionario::filtrarIntervalo(char ini, char fin){
 	Diccionario encontrado;
+        bool parar = false;
 	string palabra;
 
-	for(int i=0; i<this->num_terminos; i++){
+	for(int i=0; i<this->terminos.size() && !parar; i++){
 		palabra = this->terminos[i].getPalabra();
 
 		if(palabra[0] >= ini && palabra[0] <= fin){
 			encontrado.aniadeTermino(this->terminos[i]);
 		}
+                
+                else{
+                    parar = true;
+                }
 	}
 
 	return encontrado;
@@ -104,24 +108,22 @@ Diccionario Diccionario::filtrarIntervalo(char ini, char fin){
 Diccionario Diccionario::filtrarPalabraClave(string palabra){
 	unsigned posicion=0;
 	Diccionario encontrados;
-	bool incluido = false;
 
-	for(int i=0; i<this->num_terminos; i++){
+	for(int i=0; i<this->getNumTerminos(); i++){
+            Termino t;
+            bool incluido = true;
+            
 		for(int j=0; j<this->terminos[i].getNumDefiniciones(); j++){
-
-			posicion = this->terminos[i].getDefiniciones()[j].find(palabra);
-			if(posicion != string::npos && !incluido){
-				encontrados.terminos[i] = this->terminos[i];
-				incluido = true;
-			}
-
-			if(posicion != string::npos){
-				encontrados.terminos[i].getDefiniciones()[j] = this->terminos[i].getDefiniciones()[j];
-				
-			}
+                    if(terminos[i].getDefiniciones()[j].find(palabra) != string::npos){
+                        t.setPalabra(this->terminos[i].getPalabra());
+                        t.aniadeDefinicion(this->terminos[i].getDefiniciones()[j]);
+                        incluido = false;
+                    }
 		}
 
-	incluido = false;
+            if(!incluido){
+                encontrados.aniadeTermino(t);
+            }
 	}
 
 	return encontrados;
@@ -132,23 +134,30 @@ void Diccionario::recuentoDefiniciones(int& num_total, int& asociadas_palabra, f
 	int numDefs = this->getNumTerminos();
 	float prom=0;
 
-	for(int i=0; i<this->getNumTerminos(); i++){
+	for(int i=0; i<terminos.size(); i++){
 		total += terminos[i].getNumDefiniciones();
 
 		if(terminos[i].getNumDefiniciones() > asociadas){
-			asociadas_palabra = terminos[i].getNumDefiniciones();
+			asociadas = terminos[i].getNumDefiniciones();
 		}
 	}
 
 	num_total = total;
 	asociadas_palabra = asociadas;
-	promedio = prom/numDefs;
+	promedio = (1.0*total/numDefs);
 
 }
 
-ostream& operator << (ostream &os, const Diccionario &d){
+Diccionario& Diccionario::operator=(const Diccionario& original){
+		if(this != &original){
+			this->terminos = original.terminos;
+		}
+		return *this;
+}
+
+ostream& operator << (ostream& os, const Diccionario& d){
 	for(int i=0;i <d.getNumTerminos(); i++){
-		for(int j=0;j<=d.terminos[i].getNumDefiniciones(); j++){
+		for(int j=0;j<d.terminos[i].getNumDefiniciones(); j++){
 			os << d.terminos[i].getPalabra()<<";";
                         os << d.terminos[i].getDefiniciones()[j] <<endl;
 		}
@@ -156,7 +165,7 @@ ostream& operator << (ostream &os, const Diccionario &d){
 	return os;
 }
 
-istream& operator >> (istream& is, Diccionario& d){
+istream& operator >> (istream &is, Diccionario &p){
     string aux;
     string anterior = "\0";
     
@@ -180,7 +189,7 @@ istream& operator >> (istream& is, Diccionario& d){
                 getline(is, aux, ';');
         }while(aux == anterior);
 
-        d.aniadeTermino( taux );
+        p.aniadeTermino( taux );
         
     }while(!is.eof());
 

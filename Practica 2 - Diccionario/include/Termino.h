@@ -44,26 +44,26 @@ public:
 * @brief Consultor de número de definiciones
 * @return Número de definiciones de la palabra
 */
-	inline int getNumDefiniciones() const{return num_definiciones;};
+	inline int getNumDefiniciones() const{return this->num_definiciones;};
 
 /*
 * @brief Consultor de la palabra
 * @return La palabra
 */
-	inline string getPalabra() const{return palabra;};
+	inline string getPalabra() const{return this->palabra;};
 	
 /*
 * @brief Consultor de los significados
 * @return Significado
 */
-	inline Vector_Dinamico<string> getDefiniciones() const{return definiciones;};
+	inline Vector_Dinamico<string> getDefiniciones() const {return this->definiciones;};
 
 /*
 * @brief Consultor del significado i
 * @param El índice del significado que queremos obtener 
 * @return Significado
 */        
-        inline string getDefinicion(int i) const {return definiciones[i];}
+        inline string getDefinicion(int i) const {return this->definiciones[i];}
 /*
 * @brief Establecer la palabra
 * @param La palabra

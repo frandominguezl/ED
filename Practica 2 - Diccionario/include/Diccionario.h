@@ -95,6 +95,12 @@ public:
 	void recuentoDefiniciones(int& num_total, int& asociadas_palabra, float& promedio);
 
 /*
+@brief sobrecarga del operador igual
+@param Diccionario a asignar
+*/	
+        Diccionario& operator=(const Diccionario& original);
+        
+/*
 * @brief: Sobrecarga de operadores de entrada y salida
 */
 friend ostream& operator <<(ostream& os, const Diccionario& d);
