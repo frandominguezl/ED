@@ -1,3 +1,8 @@
+/* 
+* @file pruebadiccionario.cpp
+* @author Francisco Domínguez Lorente
+*/
+
 #include "Diccionario.h"
 #include "Termino.h"
 #include "Vector_Dinamico.h"
@@ -65,11 +70,4 @@ int main(int argc, char * argv[]){
    cout << "El recuento de definiciones es: " << endl;
    mi_diccionario.recuentoDefiniciones(num_total, asociadas_palabra, media);
    cout << "    Total: " << num_total << ", Asociadas a una palabra: " << asociadas_palabra << ", Media: " << media << endl;
-   /* Exhibir aqui la funcionalidad programada para el TDA Diccionario / TDA Termino  
-    Algunas sugerencias: 
-    - Obtener el (sub)diccionario de términos asociados a una palabra clave. Ejemplo: el diccionario de terminos asociados a "color"   
-    - Obtener el numero total de definiciones, el maximo de definiciones asociadas a una unica palabra y el promedio de definiciones por palabra
-    - Cualquier otra funcionalidad que considereis de interes 
-   */
-
 }

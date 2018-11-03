@@ -1,4 +1,5 @@
-/* @file Diccionario.cpp
+/* 
+* @file Diccionario.cpp
 * @author Francisco Domínguez Lorente
 */
 

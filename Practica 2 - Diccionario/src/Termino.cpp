@@ -1,4 +1,5 @@
-/* @file Termino.cpp
+/*
+* @file Termino.cpp
 * @author Francisco Domínguez Lorente
 */
 
@@ -41,8 +42,8 @@ Termino& Termino::operator =(const Termino& original){
 	if(this != &original){
 		this->palabra = original.getPalabra();
 		this->num_definiciones = original.getNumDefiniciones();
-                this->definiciones = original.getDefiniciones();
-        }
+        this->definiciones = original.getDefiniciones();
+    }
 
 	return *this;
 }
