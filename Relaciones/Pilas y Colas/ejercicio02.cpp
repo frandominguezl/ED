@@ -44,7 +44,7 @@ bool parentesis_correctos(string expresion){
 	/* Si el primer carácter no es el cierre de un paréntesis (no queremos eso), y
 	el contador es 0, lo hemos hecho bien */
 
-	if(contador == 0 && expresion[0] != ')'){
+	if(contador == 0 && expresion[0] != ')' &&expresion[expresion.size()-1] != '('){
 		resultado = true;
 	}
 
@@ -59,7 +59,7 @@ int main(){
 	pila.push("((hola))");
 	pila.push("((hola)");
 	pila.push("hola)");
-	pila.push(")hola(");
+	pila.push("()hola)(");
 
 	/* Llamamos a la función parentesis_correctos para cada elemento de la pila. Imprimimos
 	un mensaje dependiendo del resultado obtenido */

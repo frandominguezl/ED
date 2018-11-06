@@ -104,6 +104,9 @@ public:
 			else{
 				es_menor = false;
 			}
+
+			pila.pop();
+			cola.pila.pop();
 		}
 
 		return es_menor;
@@ -125,6 +128,9 @@ public:
 			else{
 				iguales = false;
 			}
+
+			pila.pop();
+			cola.pila.pop();
 		}
 
 		return iguales;
