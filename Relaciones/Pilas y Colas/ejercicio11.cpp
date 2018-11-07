@@ -13,23 +13,23 @@ using namespace std;
 
 
 /* El struct en sí */
-typedef struct{
+struct Identidad{
 	string apellidos;
 	string nombre;
 	int prioridad;
-}identidad;
+};
 
 /* Creamos una clase para comparar las prioridades de los struct */
 class compare{
 public:
-	bool operator()(identidad d1, identidad d2){
+	bool operator()(Identidad d1, Identidad d2){
 		return d1.prioridad < d2.prioridad;
 	}
 };
 
 int main(){
 	/* Creamos la cola con prioridad con nuestra clase compare y le añadimos algunos datos */
-	priority_queue<identidad, vector<identidad>, compare> cola_prio;
+	priority_queue<Identidad, vector<Identidad>, compare> cola_prio;
 	cola_prio.push({"Domínguez Lorente", "Francisco", 7});
 	cola_prio.push({"Beltrán Sánchez", "Francisco", 1});
 	cola_prio.push({"Gómez Hernández", "David", 3});

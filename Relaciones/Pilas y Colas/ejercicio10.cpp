@@ -16,6 +16,10 @@ private:
 	stack<T> pila_izq, pila_der, pila_aux;
 
 public:
+	Ventana(){
+		this->pila_izq = stack<T>();
+		this->pila_der = stack<T>();
+	}
 	void Insertar(T elem){
 		this->pila_izq.push(elem);
 	}

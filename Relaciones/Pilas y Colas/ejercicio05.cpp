@@ -25,6 +25,10 @@ bool palindromo(string cad){
 			es_palindromo = true;
 		}
 
+		else{
+			es_palindromo = false;
+		}
+
 		cola_aux.pop();
 		pila_aux.pop();
 	}
