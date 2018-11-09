@@ -1,12 +1,12 @@
 #include <iostream>
-#include "Cola_max.h"
+#include "Cola_max_pila.h"
 
 using namespace std;
 
 int main(){
 	
-  Cola_max<int> p;
-  /*p.poner(2);
+  Cola<int> p;
+  p.poner(2);
   cout << "Se introduce el valor 2. El maximo es " << p.maximo() << endl;
   p.poner(5);
   cout << "Se introduce el valor 5. El maximo es " << p.maximo() << endl;
@@ -29,7 +29,7 @@ int main(){
     cout << "Se quita este valor" << endl;
   }
  
-  Cola_max <float> q;
+  Cola <float> q;
   q.poner(2.4);
   cout << "Se introduce el valor 2.4. El maximo es " << q.maximo() << endl;
   q.poner(5.5);
@@ -51,7 +51,7 @@ int main(){
     cout << "El maximo es " << q.maximo() << ". ";
     q.quitar();
     cout << "Se quita este valor" << endl;
-  }*/
+  }
 
   return 0;
 }

@@ -1,24 +1,24 @@
 /*
-* @file Cola_max_pila.h
-* @brief Fichero de cabecera de Cola_max_pila
+* @file Cola_max_vd.h
+* @brief Fichero de cabecera de Cola_max_vd
 * @author Francisco Domínguez Lorente
 */
 
-#ifndef PILA_MAX_H
-#define PILA_MAX_H
+#ifndef VD_MAX_H
+#define VD_MAX_H
 
 #include <iostream>
-#include <stack>
+#include <vector>
  
 using namespace std;
 
 /*
-* TDA Cola_max_pila
+* TDA Cola_max_vd
 */
 
 template <typename T> class Cola{
 private:
-	stack<T> pila, pila_max;
+	vector<T> pila, pila_max;
 
 public:
 /*
@@ -79,5 +79,5 @@ public:
 	int num_elementos();
 };
 
-#include "Cola_max_pila.cpp"
+#include "Cola_max_vd.cpp"
 #endif
