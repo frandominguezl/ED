@@ -4,8 +4,8 @@
 * @author Francisco Domínguez Lorente
 */
 
-#ifndef PILA_MAX_H
-#define PILA_MAX_H
+#ifndef pila_max_h
+#define pila_max_h
 
 #include <iostream>
 #include <stack>
@@ -16,7 +16,7 @@ using namespace std;
 * TDA Cola_max_pila
 */
 
-template <typename T> class Cola{
+template <class T> class Cola{
 private:
 	stack<T> pila, pila_max;
 
