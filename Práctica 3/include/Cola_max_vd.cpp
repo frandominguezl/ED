@@ -3,8 +3,8 @@
 * @author Francisco Domínguez Lorente
 */
 
-#ifndef VD_MAX_H
-#define VD_MAX_H
+#ifndef COLA_MAX_VD_H
+#define COLA_MAX_VD_H
 
 #include <iostream>
 #include <vector>
@@ -12,76 +12,81 @@
 
 using namespace std;
 
-template<typename T> Cola<T>::Cola(){
-	this->pila = stack<T>();
-	this->pila_max = stack<T>();
+template <class T> Cola<T>::Cola(){
+    this->principal = vector<T>();
+    this->maximos = vector<T>();
+    this->posicion = 0;
 }
 
-template<typename T> Cola<T>::Cola(stack<T> pila, stack<T> pila_max){
-	this->pila = pila;
-	this->pila_max = pila_max;
+template<class T> Cola<T>::Cola(vector<T> principal, vector<T> maximos){
+    this->principal = principal;
+    this->maximos = maximos;
 }
 
-template<typename T> Cola<T>::Cola(const Cola& cola){
-	this->pila = cola.pila;
-	this->pila_max = cola.pila;
+template <class T> Cola<T>::Cola(const Cola &cola){
+	this->principal = cola.principal;
+	this->maximos = cola.maximos;
 }
 
-template<typename T> void Cola<T>::poner(const T& var){
-	this->pila.push(var);
-	comprobarMaximo(var);
+template <class T> T& Cola<T>::maximo(){
+	return this->maximos.back();
 }
 
-template<typename T> void Cola<T>::comprobarMaximo(const T& var){
-	// Hay que cambiar toda la pila de máximos
-	if(this->pila_max.top() > var){
-		this->pila_max.push(var);
+template <class T> T& Cola<T>::frente(){
+	return this->principal.front();
+}
+
+template <class T> void Cola<T>::poner(const T& var){
+    T max;
+    this->principal.push_back(var);
+    
+    if(maximos.empty()){
+        max = (int) 0;
+    }
+    
+    else{
+        max = (T) maximo();
+    }
+    
+    if(var < max){
+        maximos.push_back(var);
+        posicion = maximos.size() - 1;
+    }
+    
+    else{
+        for(int i=maximos.size(); i>posicion; i--){
+            maximos.pop_back();
+        }
+        
+        for(int i=maximos.size(); i<principal.size(); i++){
+            maximos.push_back(var);
+        }
+    }
+}
+
+template <class T> void Cola<T>::quitar(){
+	vector<T> aux;
+        principal[0]=-1;
+        
+	for(int i=0; i<this->principal.size(); i++){
+            if(principal[i]!=-1)
+		aux.push_back(this->principal[i]);
 	}
-
-	else{
-		this->pila_max.push(pila_max.top());
+	
+	this->principal=aux;
+	aux.clear();
+        maximos[maximos.size()-1]=-1;
+        
+	for(int i=0; i<this->maximos.size(); i++){
+            if(maximos[i]!=-1)
+		aux.push_back(this->maximos[i]);
 	}
+        
+	this->maximos=aux;
 }
 
-template<typename T> void Cola<T>::quitar(){
-	this->pila.pop();
-	this->pila_max.pop();
-}
-
-template<typename T> T& Cola<T>::frente(){
-	stack<T> pila_aux;
-
-	while(!this->pila.empty()){
-		pila_aux.push(this->pila.top());
-		this->pila.pop();
-	}
-
-	T frente = pila_aux.top();
-
-	while(!pila_aux.empty()){
-		this->pila.push(pila_aux.top());
-		pila_aux.pop();
-	}
-
-	return frente;
-}
-
-template<typename T> T& Cola<T>::maximo(){
-	return pila_max.top();
-}
-
-template<typename T> bool Cola<T>::vacia(){
-	bool vacia = false;
-
-	if(pila.empty()){
-		vacia = true;
-	}
-
-	return vacia;
-}
-
-template<typename T> int Cola<T>::num_elementos(){
-	return this->pila.size();
+template <class T> bool Cola<T>::vacia(){
+	return principal.empty();
 }
 
 #endif

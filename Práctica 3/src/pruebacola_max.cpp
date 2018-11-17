@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Cola_max_pila.h"
+#include "Cola_max.h"
 
 using namespace std;
 
@@ -44,7 +44,7 @@ int main(){
   q.poner(8.3);
   cout << "Se introduce el valor 8.3. El maximo es " << q.maximo() << endl;
    
-  cout << "La cola tiene " << q.num_elementos() << " elementos. ";
+  cout << "La cola tiene " << q.num_elementos() << " elementos. " << endl;
   cout << "El maximo es " << q.maximo() << endl;
 
   while(!q.vacia()){

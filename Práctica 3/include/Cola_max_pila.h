@@ -62,12 +62,6 @@ public:
 	T& maximo();
         
 /*
-* @brief Devuelve el máximo anterior en la cola
-* @return El máximo anterior de la cola
-*/
-	T& maximoAnterior();
- 
-/*
 * @brief Comprueba si la cola 
 * @return Devuelve true si está vacía, false si no lo está
 */

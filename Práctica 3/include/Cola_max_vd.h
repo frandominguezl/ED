@@ -4,8 +4,8 @@
 * @author Francisco Domínguez Lorente
 */
 
-#ifndef VD_MAX_H
-#define VD_MAX_H
+#ifndef pila_max_vd_h
+#define pila_max_vd_h
 
 #include <iostream>
 #include <vector>
@@ -16,9 +16,10 @@ using namespace std;
 * TDA Cola_max_vd
 */
 
-template <typename T> class Cola{
+template <class T> class Cola{
 private:
-	vector<T> pila, pila_max;
+	vector<T> principal, maximos;
+        int posicion;
 
 public:
 /*
@@ -29,8 +30,8 @@ public:
 /*
 * @brief Constructor por parámetros
 */
-	Cola(stack<T> pila, stack<T> pila_max);
-
+	Cola(vector<T> principal, vector<T> maximos);
+        
 /*
 * @brief Constructor por copia
 * @param La cola de la que se hace la copia. No se modifica
@@ -44,13 +45,7 @@ public:
 	void poner(const T& var);
 
 /*
-* @brief Comprobar y actualizar el máximo
-* @param El valor que acabamos de insertar en la pila
-*/
-	void comprobarMaximo(const T& var);
-
-/*
-* @brief Eliminar elemento de la cola. Elimina el elemento que acaba de entrar
+* @brief Eliminar elemento de la cola. Elimina el elemento que acaba de entrar.
 */
 	void quitar();
 
@@ -61,13 +56,13 @@ public:
 	T& frente();
 
 /*
-* @brief Devuelve el máximo actual en la cola
-* @return El máximo de la pila
+* @brief Devuelve el máximo actual en la cola de máximos
+* @return El máximo de la cola
 */
 	T& maximo();
  
 /*
-* @brief Comprueba si la cola 
+* @brief Comprueba si la cola está vacía
 * @return Devuelve true si está vacía, false si no lo está
 */
 	bool vacia();
@@ -76,7 +71,7 @@ public:
 * @brief Devuelve el número de elementos que contiene la cola
 * @return Número de elementos de la cola
 */
-	int num_elementos();
+	inline int num_elementos() {return this->principal.size(); };
 };
 
 #include "Cola_max_vd.cpp"
