@@ -1,4 +1,4 @@
-#define CUAL_COMPILA 1
+#define CUAL_COMPILA 0
 #if CUAL_COMPILA == 1
  #include "Cola_max_vd.h"
 #else

@@ -19,6 +19,7 @@ using namespace std;
 template <class T> class Cola{
 private:
 	stack<T> pila, pila_max;
+        int posicion;
 
 public:
 /*
@@ -62,9 +63,15 @@ public:
 
 /*
 * @brief Devuelve el máximo actual en la cola
-* @return El máximo de la pila
+* @return El máximo de la cola
 */
 	T& maximo();
+        
+/*
+* @brief Devuelve el máximo anterior en la cola
+* @return El máximo anterior de la cola
+*/
+	T& maximoAnterior();
  
 /*
 * @brief Comprueba si la cola 

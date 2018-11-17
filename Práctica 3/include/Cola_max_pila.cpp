@@ -15,6 +15,7 @@ using namespace std;
 template<class T> Cola<T>::Cola(){
     this->pila = stack<T>();
     this->pila_max = stack<T>();
+    this->posicion = 0;
 }
 
 template<class T> Cola<T>::Cola(stack<T> pila, stack<T> pila_max){
@@ -28,26 +29,44 @@ template<class T> Cola<T>::Cola(const Cola& cola){
 }
 
 template<class T> void Cola<T>::poner(const T& var){
+    T max;
     this->pila.push(var);
-    this->pila_max.push(var);
-    comprobarMaximo(var);
-}
-
-template<class T> void Cola<T>::comprobarMaximo(const T& var){
-    int max = this->pila.size();
     
-    if(var > maximo()){
-        while(!pila_max.empty()){
+    if(pila_max.empty()){
+        max = (int) 0;
+    }
+    
+    else{
+        max = (T) maximo();
+    }
+    
+    if(var < (T) max){
+        pila_max.push(var);
+        posicion = pila_max.size() - 1;
+    }
+    
+    else{
+        while(pila_max.size() != posicion){
             pila_max.pop();
         }
         
-        for(int i=0; i<max; i++){
+        for(int i=pila_max.size(); i<pila.size(); i++){
             pila_max.push(var);
         }
     }
+}
+
+template<class T> void Cola<T>::comprobarMaximo(const T& var){
     
-    else if(var < maximo()){
-        pila_max.push(var);
+    if(var < maximoAnterior()){
+        posicion = pila_max.size();
+    }
+    
+    else{
+        while(pila_max.size() != posicion+1){
+            pila_max.pop();
+            pila_max.push(var);
+        }
     }
 }
 
@@ -67,18 +86,8 @@ template<class T> void Cola<T>::quitar(){
         pila_aux.pop();
     }
     
-    // Lo mismo para la pila de máximos
-    while(!pila_max.empty()){
-        pila_aux.push(pila_max.top());
-        pila_max.pop();
-    }
-    
-    pila_aux.pop();
-    
-    while(!pila_aux.empty()){
-        pila_max.push(pila_aux.top());
-        pila_aux.pop();
-    }    
+    // Quitamos el máximo del final de pila
+    pila_max.pop();    
 }
 
 template<class T> T& Cola<T>::frente(){
@@ -106,8 +115,8 @@ template<class T> T& Cola<T>::maximo(){
 template<class T> bool Cola<T>::vacia(){
 	bool vacia = false;
 
-	if(pila.empty() && pila_max.empty()){
-		vacia = true;
+	if(pila.empty()){
+            vacia = true;
 	}
 
 	return vacia;

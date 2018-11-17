@@ -30,7 +30,7 @@ int main(){
     cout << "Se quita este valor" << endl;
   }
  
-  /*Cola <float> q;
+  Cola <float> q;
   q.poner(2.4);
   cout << "Se introduce el valor 2.4. El maximo es " << q.maximo() << endl;
   q.poner(5.5);
@@ -52,7 +52,7 @@ int main(){
     cout << "El maximo es " << q.maximo() << ". ";
     q.quitar();
     cout << "Se quita este valor" << endl;
-  }*/
+  }
 
   return 0;
 }
