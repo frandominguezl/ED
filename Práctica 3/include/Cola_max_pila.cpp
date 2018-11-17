@@ -56,20 +56,6 @@ template<class T> void Cola<T>::poner(const T& var){
     }
 }
 
-template<class T> void Cola<T>::comprobarMaximo(const T& var){
-    
-    if(var < maximoAnterior()){
-        posicion = pila_max.size();
-    }
-    
-    else{
-        while(pila_max.size() != posicion+1){
-            pila_max.pop();
-            pila_max.push(var);
-        }
-    }
-}
-
 template<class T> void Cola<T>::quitar(){
     stack<T> pila_aux;
     

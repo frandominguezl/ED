@@ -45,12 +45,6 @@ public:
 	void poner(const T& var);
 
 /*
-* @brief Comprobar y actualizar el máximo
-* @param El valor que acabamos de insertar en la pila
-*/
-	void comprobarMaximo(const T& var);
-
-/*
 * @brief Eliminar elemento de la cola. Elimina el elemento que acaba de entrar
 */
 	void quitar();
