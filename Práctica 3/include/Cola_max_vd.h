@@ -4,8 +4,8 @@
 * @author Francisco Domínguez Lorente
 */
 
-#ifndef pila_max_vd_h
-#define pila_max_vd_h
+#ifndef cola_max_vd_h
+#define cola_max_vd_h
 
 #include <iostream>
 #include <vector>
