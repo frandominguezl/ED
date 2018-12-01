@@ -22,13 +22,18 @@ Diccionario::Diccionario(const Diccionario& d){
     this->terminos = d.getTerminos();
 }
 
-// Rehacer
+// Comprobar
 vector<string> Diccionario::getDefs(string palabra){
-    const_iterator found = terminos.find(palabra);
+    const_iterator found;
+    bool encontrada = false;
     Termino aux;
     
-    if(found != terminos.end()){
-        aux = *found;
+    for(found = terminos.begin(); found != terminos.end() && !encontrada; ++found){
+        Termino t = *found;
+        if(t.getPalabra() == palabra){
+            encontrada = true;
+            aux = *found;
+        }
     }
     
     return aux.getDefiniciones();
@@ -42,44 +47,47 @@ void Diccionario::eliminarTermino(Termino t){
     this->terminos.erase(t);
 }
 
-// Rehacer
+// Comprobar
 Diccionario Diccionario::filtrarIntervalo(char ini, char fin){
     Diccionario encontrado;
     bool parar = false;
     string palabra;
-
-    for(int i=0; i<this->terminos.size() && !parar; i++){
-            palabra = this->terminos[i].getPalabra();
-
-            if(palabra[0] >= ini && palabra[0] <= fin){
-                    encontrado.aniadeTermino(this->terminos[i]);
-            }
-
-            else{
-                parar = true;
-            }
+    const_iterator itr;
+    
+    for(itr = terminos.begin(); itr != terminos.end() && !parar; ++itr){
+        Termino aux = *itr;
+        palabra = aux.getPalabra();
+        
+        if(palabra[0] >= ini && palabra[0] <= fin){
+            encontrado.aniadeTermino(*itr);
+        }
+        
+        else{
+            parar = true;
+        }
     }
-
+    
     return encontrado;
 }
 
-// Rehacer
+// Comprobar
 Diccionario Diccionario::filtrarPalabraClave(string palabra){
-    unsigned posicion=0;
     Diccionario encontrados;
+    const_iterator itr;
 
-    for(int i=0; i<this->getNumTerminos(); i++){
-        Termino t;
+    for(itr = terminos.begin(); itr != terminos.end(); ++itr){
+        Termino t = *itr;
+        Termino aux;
         bool incluido = true;
-
-            for(int j=0; j<this->terminos[i].getNumDefiniciones(); j++){
-                if(terminos[i].getDefiniciones()[j].find(palabra) != string::npos){
-                    t.setPalabra(this->terminos[i].getPalabra());
-                    t.aniadeDefinicion(this->terminos[i].getDefiniciones()[j]);
-                    incluido = false;
-                }
+        
+        for(int i=0; i<t.getNumDefiniciones(); i++){
+            if(t.getDefiniciones()[i].find(palabra) != string::npos){
+                aux.setPalabra(t.getPalabra());
+                aux.aniadeDefinicion(t.getDefiniciones()[i]);
+                incluido = false;
             }
-
+        }
+        
         if(!incluido){
             encontrados.aniadeTermino(t);
         }
@@ -88,18 +96,20 @@ Diccionario Diccionario::filtrarPalabraClave(string palabra){
     return encontrados;
 }
 
-// Rehacer
+// Comprobar
 void Diccionario::recuentoDefiniciones(int& num_total, int& asociadas_palabra, float& promedio){
     int total=0, asociadas=0;
     int numDefs = this->getNumTerminos();
-    float prom=0;
-
-    for(int i=0; i<terminos.size(); i++){
-            total += terminos[i].getNumDefiniciones();
-
-            if(terminos[i].getNumDefiniciones() > asociadas){
-                    asociadas = terminos[i].getNumDefiniciones();
-            }
+    const_iterator itr;
+    
+    for(itr = terminos.begin(); itr != terminos.end(); ++itr){
+        Termino aux = *itr;
+        
+        total += aux.getNumDefiniciones();
+        
+        if(aux.getNumDefiniciones() > asociadas){
+            asociadas = aux.getNumDefiniciones();
+        }
     }
 
     num_total = total;
@@ -196,6 +206,7 @@ ostream& operator<< (ostream & os, const Diccionario & d){
     return os;
 }
 
+// Comprobar
 istream& operator >> (istream &is, Diccionario &p){
     string aux;
     string anterior = "\0";
