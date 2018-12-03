@@ -9,7 +9,6 @@
 using namespace std;
 
 Diccionario::Diccionario(){
-    this->terminos = set<Termino>(0);
     this->num_terminos = 0;
 }
 
@@ -117,76 +116,20 @@ void Diccionario::recuentoDefiniciones(int& num_total, int& asociadas_palabra, f
     promedio = (1.0*total/numDefs);
 }
 
-iterator Diccionario::begin(){
+Diccionario::iterator Diccionario::begin(){
     return terminos.begin();
 }
 
-iterator Diccionario::end(){
+Diccionario::iterator Diccionario::end(){
     return terminos.end();
 }
 
-iterator& Diccionario::operator++(){
-    return iterator++;
-}
-
-iterator& Diccionario::operator--(){
-    return iterator--;
-}
-
-iterator& Diccionario::operator*(){
-    return *iterator;
-}
-
-iterator& Diccionario::operator=(const iterator& itr){
-    if(this != &itr){
-        this = itr;
-    }
-    
-    return *this;
-}
-
-bool Diccionario::operator==(const iterator& itr){
-    return iterator==itr;
-}
-
-bool Diccionario::operator!=(const iterator& itr){
-    return iterator!=itr;
-}
-
-const_iterator Diccionario::begin() const{
+Diccionario::const_iterator Diccionario::begin() const{
     return this->terminos.cbegin();
 }
 
-const_iterator Diccionario::end() const{
+Diccionario::const_iterator Diccionario::end() const{
     return this->terminos.cend();
-}
-
-const_iterator& Diccionario::operator++(){
-    return const_iterator++;
-}
-
-const_iterator& Diccionario::operator--(){
-    return const_iterator--;
-}
-
-const_iterator& Diccionario::operator*(){
-    return *const_iterator;
-}
-
-const_iterator& Diccionario::operator=(const const_iterator& itr){
-    if(this != &itr){
-        this = itr;
-    }
-    
-    return *this;
-}
-
-bool Diccionario::operator==(const const_iterator& itr){
-    return const_iterator==itr;
-}
-
-bool Diccionario::operator!=(const const_iterator& itr){
-    return const_iterator!=itr;
 }
 
 Diccionario& Diccionario::operator=(const Diccionario& original){

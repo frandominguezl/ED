@@ -93,97 +93,25 @@ public:
  * @brief Devuelve el inicio del contenedor. Puede modificar.
  * @return Iterador apuntando al inicio del contenedor
  */
-        iterator begin();
+        Termino::iterator begin();
         
 /*
  * @brief Devuelve el final del contenedor. Puede modificar.
  * @return Iterador apuntando al final del contenedor
  */
-        iterator end();
-
-/*
- * @brief Sobrecarga del operador incremento sobre el iterador
- * @return Referencia al iterador
- */
-        iterator& operator++();
-
-/*
- * @brief Sobrecarga del operador decremento sobre el iterador
- * @return Referencia al iterador
- */        
-        iterator& operator--();
-
-/*
- * @brief Sobrecarga del operador * sobre el iterador
- * @return Referencia al iterador
- */        
-        iterator& operator*();
-
-/*
- * @brief Sobrecarga del operador asignación sobre el iterador
- * @return Referencia al iterador
- */        
-        iterator& operator=(const iterator& itr);
-
-/*
- * @brief Sobrecarga del operador igualdad sobre el iterador
- * @return True si son iguales, false si no
- */        
-        bool operator==(const iterator& itr);
-
-/*
- * @brief Sobrecarga del operador desigualdad sobre el iterador
- * @return Referencia al iterador
- */        
-        bool operator!=(const iterator& itr);
-        
+        Termino::iterator end();
+       
 /*
  * @brief Devuelve el inicio del contenedor
  * @return Iterador apuntando al inicio del contenedor
  */
-        const_iterator begin() const;
+        Termino::const_iterator begin() const;
 
 /*
  * @brief Devuelve el final del contenedor
  * @return Iterador apuntando al final del contenedor
  */
-        const_iterator end() const;        
-
-/*
- * @brief Sobrecarga del operador incremento sobre el iterador constante
- * @return Referencia al iterador
- */
-        const_iterator& operator++();
-
-/*
- * @brief Sobrecarga del operador decremento sobre el iterador constante
- * @return Referencia al iterador
- */        
-        const_iterator& operator--();
-
-/*
- * @brief Sobrecarga del operador * sobre el iterador constante
- * @return Referencia al iterador
- */        
-        const_iterator& operator*();
-
-/*
- * @brief Sobrecarga del operador asignación sobre el iterador constante
- * @return Referencia al iterador
- */        
-        const_iterator& operator=(const const_iterator& itr);
-
-/*
- * @brief Sobrecarga del operador igualdad sobre el iterador constante
- * @return Referencia al iterador
- */        
-        bool operator==(const const_iterator& itr);
-
-/*
- * @brief Sobrecarga del operador desigualdad sobre el iterador constante
- * @return Referencia al iterador
- */        
-        bool operator!=(const const_iterator& itr);
+        Termino::const_iterator end() const;        
         
 /*
  * @brief Sobrecarga del operador de asignación de término
