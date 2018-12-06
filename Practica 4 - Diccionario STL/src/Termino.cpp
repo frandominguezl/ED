@@ -34,22 +34,6 @@ void Termino::aniadeDefinicion(string def){
     this->termino.second.push_back(def);
 }
 
-Termino::iterator Termino::begin(){
-    return this->termino.second.begin();    
-}
-
-Termino::iterator Termino::end(){
-    return this->termino.second.end();
-}
-
-Termino::const_iterator Termino::begin() const{
-    return this->termino.second.cbegin();
-}
-
-Termino::const_iterator Termino::end() const{
-    return this->termino.second.cend();
-}
-
 Termino& Termino::operator =(const Termino& original){
 	if(this != &original){
 		this->termino.first = original.getPalabra();
@@ -60,7 +44,11 @@ Termino& Termino::operator =(const Termino& original){
 	return *this;
 }
 
-ostream& Termino::operator<< (ostream & os, const Termino & t){
+bool Termino::operator<(const Termino& otro) const{
+            return this->termino.first < otro.getPalabra();
+}
+
+ostream& operator<< (ostream& os, const Termino& t){
     Termino::const_iterator it;
     
     for(it = t.begin(); it != t.end(); ++it){

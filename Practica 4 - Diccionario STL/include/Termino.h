@@ -93,36 +93,43 @@ public:
  * @brief Devuelve el inicio del contenedor. Puede modificar.
  * @return Iterador apuntando al inicio del contenedor
  */
-        Termino::iterator begin();
+        inline Termino::iterator begin(){return this->termino.second.begin();}
         
 /*
  * @brief Devuelve el final del contenedor. Puede modificar.
  * @return Iterador apuntando al final del contenedor
  */
-        Termino::iterator end();
+        inline Termino::iterator end() {return this->termino.second.end();}
        
 /*
  * @brief Devuelve el inicio del contenedor
  * @return Iterador apuntando al inicio del contenedor
  */
-        Termino::const_iterator begin() const;
+        inline Termino::const_iterator begin() const{return this->termino.second.cbegin();};
 
 /*
  * @brief Devuelve el final del contenedor
  * @return Iterador apuntando al final del contenedor
  */
-        Termino::const_iterator end() const;        
+        inline Termino::const_iterator end() const{return this->termino.second.cend();};        
         
 /*
  * @brief Sobrecarga del operador de asignación de término
  * @return Referencia al término
  */
 	Termino& operator =(const Termino& original);
+
+/*
+ * @brief Sobrecarga del operador menor, para comparar
+ */
+        bool operator <(const Termino& otro) const;
         
 /*
- * @brief Sobrecarga de operador de salida
+ * @brief Sobrecarga del operador de salida
  */
-        friend ostream& operator <<(ostream& os, const Termino& d);        
+        friend ostream& operator <<(ostream& os, const Termino& d);
+        
+
 };
 
 #endif

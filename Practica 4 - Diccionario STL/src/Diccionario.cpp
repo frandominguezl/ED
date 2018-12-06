@@ -23,13 +23,12 @@ Diccionario::Diccionario(const Diccionario& d){
 
 // Comprobar
 vector<string> Diccionario::getDefs(string palabra){
-    const_iterator found;
+    Diccionario::const_iterator found;
     bool encontrada = false;
     Termino aux;
     
     for(found = terminos.begin(); found != terminos.end() && !encontrada; ++found){
-        Termino t = *found;
-        if(t.getPalabra() == palabra){
+        if(found->getPalabra() == palabra){
             encontrada = true;
             aux = *found;
         }
@@ -51,7 +50,7 @@ Diccionario Diccionario::filtrarIntervalo(char ini, char fin){
     Diccionario encontrado;
     bool parar = false;
     string palabra;
-    const_iterator itr;
+    Diccionario::const_iterator itr;
     
     for(itr = terminos.begin(); itr != terminos.end() && !parar; ++itr){
         Termino aux = *itr;
@@ -72,7 +71,7 @@ Diccionario Diccionario::filtrarIntervalo(char ini, char fin){
 // Comprobar
 Diccionario Diccionario::filtrarPalabraClave(string palabra){
     Diccionario encontrados;
-    const_iterator itr;
+    Diccionario::const_iterator itr;
 
     for(itr = terminos.begin(); itr != terminos.end(); ++itr){
         Termino t = *itr;
@@ -99,7 +98,7 @@ Diccionario Diccionario::filtrarPalabraClave(string palabra){
 void Diccionario::recuentoDefiniciones(int& num_total, int& asociadas_palabra, float& promedio){
     int total=0, asociadas=0;
     int numDefs = this->getNumTerminos();
-    const_iterator itr;
+    Diccionario::const_iterator itr;
     
     for(itr = terminos.begin(); itr != terminos.end(); ++itr){
         Termino aux = *itr;
