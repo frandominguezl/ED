@@ -1,8 +1,3 @@
-/*
-* @file Diccionario.cpp (STL)
-* @author Francisco Domínguez Lorente
-*/
-
 #include "Diccionario.h"
 #include <iostream>
 
@@ -96,23 +91,18 @@ Diccionario Diccionario::filtrarPalabraClave(string palabra){
 
 // Comprobar
 void Diccionario::recuentoDefiniciones(int& num_total, int& asociadas_palabra, float& promedio){
-    int total=0, asociadas=0;
-    int numDefs = this->getNumTerminos();
+    num_total=asociadas_palabra=0;
+    promedio=0.0;
     Diccionario::const_iterator itr;
     
-    for(itr = terminos.begin(); itr != terminos.end(); ++itr){
+    for(itr = Diccionario::begin(); itr != Diccionario::end(); ++itr){
         Termino aux = *itr;
-        
-        total += aux.getNumDefiniciones();
-        
-        if(aux.getNumDefiniciones() > asociadas){
-            asociadas = aux.getNumDefiniciones();
+        num_total += aux.getNumDefiniciones();
+        if(aux.getNumDefiniciones() > asociadas_palabra){
+            asociadas_palabra = aux.getNumDefiniciones();
         }
     }
-
-    num_total = total;
-    asociadas_palabra = asociadas;
-    promedio = (1.0*total/numDefs);
+    promedio=num_total/this->terminos.size();
 }
 
 Diccionario::iterator Diccionario::begin(){

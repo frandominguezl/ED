@@ -48,21 +48,14 @@ int main(int argc, char * argv[]){
    cout << "        " << mi_diccionario.filtrarIntervalo(ini, fin) << endl;
 
    // Obtener el (sub)diccionario de términos asociados a una palabra clave
-   string palabra2 = "james";
+   string palabra2 = "color";
    
    cout << "El (sub)diccionario de términos asociados a la palabra `" << palabra2 << "` es: " << endl;
-    
-   if(mi_diccionario.filtrarPalabraClave(palabra2).getNumTerminos() == 0){
-       cout << "        La palabra `" << palabra2 << "` no aparece en ninguna definición " << endl << endl;
-   }
-   else{
-       cout << "        " << mi_diccionario.filtrarPalabraClave(palabra2) << endl;
-   }
-   
+   cout<<mi_diccionario.filtrarPalabraClave(palabra2);
    
    // Obtener el recuento de las definiciones
-   int num_total=0, asociadas_palabra=0;
-   float media=0;
+   int num_total, asociadas_palabra;
+   float media;
    
    cout << "El recuento de definiciones es: " << endl;
    mi_diccionario.recuentoDefiniciones(num_total, asociadas_palabra, media);

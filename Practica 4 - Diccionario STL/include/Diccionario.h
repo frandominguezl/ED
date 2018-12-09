@@ -1,7 +1,6 @@
-/* 
-* @file "Diccionaro.h"
-* @brief Fichero de cabecera de Diccionario.cpp (
-* @author Francisco Domínguez Lorente
+/*
+* @author: Domíngez Lorente Francisco
+* @author: Gómez Hernández David
 */
 
 #ifndef DICCIONARIO_H

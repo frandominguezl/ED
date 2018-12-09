@@ -1,7 +1,6 @@
-/* 
-* @file "Termino.h"
-* @brief Fichero de cabecera de Termino.cpp (STL)
-* @author Francisco Domínguez Lorente
+/*
+* @author: Domíngez Lorente Francisco
+* @author: Gómez Hernández David
 */
 
 #ifndef terminoH
@@ -44,7 +43,7 @@ public:
  * @brief Consultor de número de definiciones
  * @return Número de definiciones de la palabra
  */
-	inline int getNumDefiniciones() const{return this->num_definiciones;};
+	inline int getNumDefiniciones() const{return this->termino.second.size();};
 
 /*
  * @brief Consultor de la palabra

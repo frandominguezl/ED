@@ -1,8 +1,3 @@
-/*
-* @file Termino.cpp (STL)
-* @author Francisco Domínguez Lorente
-*/
-
 #include <iostream>
 #include "Termino.h"
 
