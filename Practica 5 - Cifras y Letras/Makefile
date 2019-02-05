@@ -22,13 +22,13 @@ exec_cantidad_letras: comp_cantidad_letras
 
 # MÓDULOS
 
-comp_all: comp_conjunto_letras comp_letras comp_cantidad_letras
+comp_all: comp_letras comp_cantidad_letras
 
 
 ## Letras
 comp_letras: $(BIN)/letras
 
-$(BIN)/letras: $(OBJ)/letras.o $(LIB)/liberialibreria.a
+$(BIN)/letras: $(OBJ)/letras.o $(LIB)/libjuego.a
 	$(CXX) -o $(BIN)/letras $(OBJ)/letras.o  -L$(LIB) -ljuego
 
 $(OBJ)/letras.o : $(SRC)/letras.cpp
@@ -38,7 +38,7 @@ $(OBJ)/letras.o : $(SRC)/letras.cpp
 
 comp_cantidad_letras: $(BIN)/cantidad_letras
 
-$(BIN)/cantidad_letras: $(OBJ)/cantidad_letras.o $(LIB)/liberialibreria.a
+$(BIN)/cantidad_letras: $(OBJ)/cantidad_letras.o $(LIB)/libjuego.a
 	$(CXX) -o $(BIN)/cantidad_letras $(OBJ)/cantidad_letras.o  -L$(LIB) -ljuego
 
 $(OBJ)/cantidad_letras.o : $(SRC)/cantidad_letras.cpp
@@ -46,8 +46,8 @@ $(OBJ)/cantidad_letras.o : $(SRC)/cantidad_letras.cpp
 
 ## LIBRERIAS
 
-$(LIB)/liberialibreria.a : $(OBJ)/conjunto_letras.o $(OBJ)/letra.o $(OBJ)/conjunto_letras.o $(OBJ)/bolsa_letras.o $(OBJ)/lista_palabras.o
-	ar rvs $(LIB)/liberialibreria.a $(OBJ)/conjunto_letras.o $(OBJ)/letra.o $(OBJ)/conjunto_letras.o $(OBJ)/bolsa_letras.o $(OBJ)/lista_palabras.o
+$(LIB)/libjuego.a : $(OBJ)/conjunto_letras.o $(OBJ)/letra.o $(OBJ)/bolsa_letras.o $(OBJ)/lista_palabras.o
+	ar rvs $(LIB)/libjuego.a $(OBJ)/conjunto_letras.o $(OBJ)/letra.o $(OBJ)/conjunto_letras.o $(OBJ)/bolsa_letras.o $(OBJ)/lista_palabras.o
 
 $(OBJ)/letra.o : $(SRC)/letra.cpp
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/letra.o $(SRC)/letra.cpp 
@@ -61,13 +61,13 @@ $(OBJ)/bolsa_letras.o : $(SRC)/bolsa_letras.cpp
 $(OBJ)/lista_palabras.o : $(SRC)/lista_palabras.cpp
 	$(CXX) $(CPPFLAGS) -o $(OBJ)/lista_palabras.o $(SRC)/lista_palabras.cpp
 
-# **** Generación de documentación ******
+# **** DOCUMENTACIÓN ******
 documentacion:
 	doxygen doc/doxys/Doxyfile
 
-# **** Limpieza ****
+# **** LIMPIEZA ****
 clean :
-	-rm $(OBJ)/* $(SRC)/*~ $(INC)/*~ ./*~ datos/*_P.txt
+	-rm -f $(OBJ)/* $(BIN)/*~ $(LIB)/*~
 
 mrproper : clean
 	-rm doc/html/*
